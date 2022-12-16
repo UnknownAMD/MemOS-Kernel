@@ -20,14 +20,9 @@
         <DebugEnabled>False</DebugEnabled>
         <VMWareEdition>Player</VMWareEdition>
     </PropertyGroup>
-
+  
     <ItemGroup>
-      <Compile Remove="apps\tools\Lua\**" />
-      <Compile Remove="services\Nlua\**" />
-      <EmbeddedResource Remove="apps\tools\Lua\**" />
-      <EmbeddedResource Remove="services\Nlua\**" />
-      <None Remove="apps\tools\Lua\**" />
-      <None Remove="services\Nlua\**" />
+      <Compile Remove="apps\tools\Notepad.cs" />
     </ItemGroup>
 
     <ItemGroup>

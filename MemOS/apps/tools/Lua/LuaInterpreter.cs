@@ -1,5 +1,6 @@
 ﻿using Neo.IronLua;
 using System;
+using System.IO;
 
 namespace MemOS.apps.tools
 {
@@ -16,7 +17,7 @@ namespace MemOS.apps.tools
         public static void Execute(string path)
         {
             Lua lua = new Lua();
-            lua.CreateEnvironment().DoChunk("",path); // Create a environment and execute
+            lua.CreateEnvironment().DoChunk(File.ReadAllText(path),path); // Create a environment and execute
         }
         public static void Compile(string path,LuaCompileOptions options)
         {

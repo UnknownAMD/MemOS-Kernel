@@ -7,6 +7,8 @@
  * fix chmod
  * fix reboot
  * fix user
+ * fix notepad
+ * finish lua
 */
 
 
@@ -63,16 +65,17 @@ namespace MemOS.apps
                     case "beep": beep.Main(); break;
                     case "playbeep": playbeep.Main(); break;
                     case "cdreset": Kernel.Resetpath(); break;
-                    case "notepad": Notepad.Main(args[1]); break;
+                   // case "notepad": Notepad.Main(args[1]); break; // TODO: fix fix fix fix
                     case "rm": switch (args[1]) { case "-f": remove.fullpath(args[1]); break; case "-h": remove.help(); break; case "": remove.help(); break; default: remove.args(args[1], curpath); break; } break;
-                   // case "lua": switch (args[1]) { case "-c": break; case "-h": break; case "-r": break; default: break; } break;
+                    // case "lua": switch (args[1]) { case "-c": break; case "-h": break; case "-r": break; default: break; } break;
+                    case "miv": MIV.StartMIV(); break;
 
                     default:
-                        if (File.Exists(input))
+                        if (File.Exists(input) && input.EndsWith("lua"))
                         {
-                      //     LuaInterpreter.Execute(input); break;
+                            LuaInterpreter.Execute(input); break;
                         }
-                        ErrorHandle.ThrowError("Syntax error: Unknown command or Lua script");
+                        else ErrorHandle.ThrowError("Syntax error: Unknown command or Lua script");
                         break;
                 }
             }
