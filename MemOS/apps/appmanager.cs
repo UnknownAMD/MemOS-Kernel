@@ -2,15 +2,11 @@
  * make this faster
  * a lot of error checking
  * needs more optimization
- * fix cat
- * fix write
- * fix miv
  * fix diskmg
  * fix math
  * fix chmod
  * fix reboot
  * fix user
- * fix login
 */
 
 
@@ -67,15 +63,16 @@ namespace MemOS.apps
                     case "beep": beep.Main(); break;
                     case "playbeep": playbeep.Main(); break;
                     case "cdreset": Kernel.Resetpath(); break;
-                    case "write": write.Main(args[1]); break;
+                    case "notepad": Notepad.Main(args[1]); break;
                     case "rm": switch (args[1]) { case "-f": remove.fullpath(args[1]); break; case "-h": remove.help(); break; case "": remove.help(); break; default: remove.args(args[1], curpath); break; } break;
+                   // case "lua": switch (args[1]) { case "-c": break; case "-h": break; case "-r": break; default: break; } break;
 
                     default:
                         if (File.Exists(input))
                         {
-                           // lua.LoadFile(input);
+                      //     LuaInterpreter.Execute(input); break;
                         }
-                        ErrorHandle.ThrowError("Syntax error: Unknown command or executable");
+                        ErrorHandle.ThrowError("Syntax error: Unknown command or Lua script");
                         break;
                 }
             }

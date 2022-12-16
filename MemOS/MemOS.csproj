@@ -7,7 +7,7 @@
         <SupportsX86Intrinsics>false</SupportsX86Intrinsics>
         <SelfContained>True</SelfContained>
     </PropertyGroup>
-
+  
     <PropertyGroup>
         <EnableGDB>True</EnableGDB>
         <StartCosmosGDB>True</StartCosmosGDB>
@@ -22,20 +22,24 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="apps\tools\Lua\**" />
       <Compile Remove="services\Nlua\**" />
+      <EmbeddedResource Remove="apps\tools\Lua\**" />
       <EmbeddedResource Remove="services\Nlua\**" />
+      <None Remove="apps\tools\Lua\**" />
       <None Remove="services\Nlua\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Include="..\.editorconfig" Link=".editorconfig" />
     </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Cosmos.Build" Version="0-*" NoWarn="NU1604" />
         <PackageReference Include="Cosmos.Debug.Kernel" Version="0-*" NoWarn="NU1604" />
         <PackageReference Include="Cosmos.System2" Version="0-*" NoWarn="NU1604" />
-        <PackageReference Include="ManagedSoftwareExecution" Version="1.2.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Neo.Lua">
+        <HintPath>apps\tools\Lua\Neo.Lua.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>
