@@ -6,6 +6,7 @@
         <Platform>cosmos</Platform>
         <SupportsX86Intrinsics>false</SupportsX86Intrinsics>
         <SelfContained>True</SelfContained>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     </PropertyGroup>
   
     <PropertyGroup>
@@ -20,10 +21,6 @@
         <DebugEnabled>False</DebugEnabled>
         <VMWareEdition>Player</VMWareEdition>
     </PropertyGroup>
-  
-    <ItemGroup>
-      <Compile Remove="apps\tools\Notepad.cs" />
-    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Cosmos.Build" Version="0-*" NoWarn="NU1604" />

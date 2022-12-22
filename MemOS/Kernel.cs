@@ -1,69 +1,53 @@
 ﻿using System;
 using System.IO;
 using Sys = Cosmos.System;
-using MemOS.apps;
 using MemOS.services;
-using MemOS.apps.pcinfo;
+using MemOS.Emulation;
 using MemOS.apps.system;
-using MemOS.apps.basic;
-//using Cosmos.System.Emulation;
+using System.Collections.Generic;
 
 namespace MemOS
 {
     public class Kernel : Sys.Kernel
     {
-        bool isConsole = true; bool firstTImeUser = true;
-        int usergroup = 1;public bool isLoggedIn = false; string user = "", ps = ""; // Might be a security issue
+        public bool LoginEnabled;
+        public bool isConsole = true; bool firstTimeUser = true;
+        public User curuser;
+        public bool isLoggedIn;
+        public string version = "1.3.3";
         public string tryit;
         public static string curpath = @"0:\";
+        public List<string> History;
         protected override void BeforeRun()
         {
             Console.WriteLine("Loading Kernel...");
-            //FGMSECInstructionSet.Install();
             Console.ResetColor();
             MemOS.TryBoot();
-            appmanager.TrySee();
-            echoapp.TryCheck();
-            powercontrol.TryCheck();
-            sysinfo.TryCheck();
-            date.TryCheck();
+            FGMSECInstructionSet.Install();
             diskrun.autorun();
+            netrun.autorun();
             Console.Clear();
             MemOS.Welcome();
-            firstTImeUser = !File.Exists("0:\\users.dat");
+            LoginEnabled = usermanager.CheckLoginEnabled();
+            if (!LoginEnabled) { curuser = new User() { username = "root", privLevel = privilege.System }; isLoggedIn = true; }
         }
-
         protected override void Run()
         {
-            if (!firstTImeUser) //If we aren't a first time user
+            if (LoginEnabled) //If logins are enabled
             {
-                if (isLoggedIn)
+                if (isLoggedIn) //and we are logged in
                 {
                     if (isConsole)
-                        consoleLoop();
+                        consoleLoop(); //do main loop
                     //else
-                    //initGUI(); // sussy gui
+                    //initGUI();
                 }
-                else
-                    displayLogin();
+                else //If we're not logged in
+                    displayLogin(); //Display login page
             }
-            else  //Else init the install procedure
+            else  //If logins aren't enabled
             {
-                Console.Clear();
-                MemOS.Welcome();
-                Console.WriteLine("Setting up MemOS");
-                try
-                {
-                    File.Create("0:\\users.dat");
-                    File.WriteAllText("0:\\users.dat", "user:root$pswd:root$date:#NAL#$group:01$name:root");
-                    Console.WriteLine(File.ReadAllText("0:\\users.dat"));
-                }
-                catch (Exception e) { Console.WriteLine(e); }
-                Console.WriteLine("Created users.dat! Press any key to reboot...");
-                Console.ReadKey();
-                Console.Clear();
-                Console.WriteLine("Rebooting PC...");
-                Sys.Power.Reboot();
+                consoleLoop(); //do main loop
             }
         }
         public static void PathCD(string curpath)
@@ -81,32 +65,29 @@ namespace MemOS
         }
         void consoleLoop()
         {
-            antidownwithoutreason:
+        antidownwithoutreason:
             MemOS.Main(curpath);
             goto antidownwithoutreason;
         }
         public void displayLogin()
         {
-            Console.Clear();
-            MemOS.Welcome();
-            string[] logins = File.ReadAllLines(@"0:\users.dat");
-            Login l = new Login();
-            Console.Write("Enter your username: ");
-            string s = Console.ReadLine();
-            Console.Write("Enter your password: ");
-            Console.ResetColor();
-            string p = maskedEntry();
-            if (l.validateLogin(logins, p, s))
+            while (isLoggedIn == false)
             {
-                usergroup = l.group; user = s; ps = p;
-                isLoggedIn = true;
+                Console.Clear();
+                MemOS.Welcome();
+                Login l = new Login();
+                Console.Write("Enter your username: ");
+                string s = Console.ReadLine();
+                Console.Write("Enter your password: ");
+                string p = maskedEntry();
+                Console.WriteLine(p +" "+ s);
+                isLoggedIn = l.validateLogin(p, s);
+                Console.ReadKey();
+                Console.Clear();
             }
-            Console.ReadKey();
-            Console.Clear();
-            Run();
-            
+            MemOS.Welcome();
         }
-        private string maskedEntry()
+        public string maskedEntry()
         {
             string pass = "";
             ConsoleKeyInfo key;

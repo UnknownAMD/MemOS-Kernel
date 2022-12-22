@@ -16,14 +16,8 @@ namespace MemOS.apps.system
         {
             Console.WriteLine("Date: " + Cosmos.HAL.RTC.DayOfTheMonth + "/" + Cosmos.HAL.RTC.Month + "/" + "20" + Cosmos.HAL.RTC.Year);
             Console.WriteLine("Time: " + Cosmos.HAL.RTC.Hour + ":" + Cosmos.HAL.RTC.Minute + ":" + Cosmos.HAL.RTC.Second);
-            Console.WriteLine("Notice: Date Format is dd/mm/yyyy");
-            Console.WriteLine("Notice: Time is 24h format");
-        }
-        public static void shortforsys()
-        {
-            Console.WriteLine("Kernel Date:");
-            Console.WriteLine("Date: " + Cosmos.HAL.RTC.DayOfTheMonth + "/" + Cosmos.HAL.RTC.Month + "/" + "20" + Cosmos.HAL.RTC.Year);
-            Console.WriteLine("Time: " + Cosmos.HAL.RTC.Hour + ":" + Cosmos.HAL.RTC.Minute + ":" + Cosmos.HAL.RTC.Second);
+            Console.WriteLine("Date Format is dd/mm/yyyy");
+            Console.WriteLine("Time Format is 24hrs");
         }
     }
 }

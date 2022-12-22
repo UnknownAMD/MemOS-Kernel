@@ -5,7 +5,7 @@ using MemOS.apps.system;
 
 namespace MemOS.apps.tools
 {
-    public static class listoffile
+    public static class ls
     {
         public static void TryCheck()
         {
@@ -13,7 +13,7 @@ namespace MemOS.apps.tools
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("  OK  ");
             Console.ResetColor();
-            Console.WriteLine("] MemOS app: listoffile (ls)");
+            Console.WriteLine("] MemOS app: ls (ls)");
         }
         public static void Main(string input)
         {

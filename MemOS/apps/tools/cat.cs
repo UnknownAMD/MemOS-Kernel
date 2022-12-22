@@ -1,7 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Text;
-using Sys = Cosmos.System;
 using MemOS.apps.system;
 
 namespace MemOS.apps.tools

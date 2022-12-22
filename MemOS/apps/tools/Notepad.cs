@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace MemOS.apps.tools
 {
@@ -24,7 +23,7 @@ namespace MemOS.apps.tools
             int lastlines;
             if (!File.Exists(Path))
             {
-                File.WriteAllText(Path, " ");
+                File.Create(Path);
             }
         WRITE_EDITOR:
             try
@@ -35,6 +34,7 @@ namespace MemOS.apps.tools
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Loaded File: " + Path + "\n");
+                if (lines2.Length == 0) lineChanger("", Path, 5);
                 if (curpage != pages)
                 {
                     for (int i = 1; i <= 5; i++)
@@ -63,7 +63,6 @@ namespace MemOS.apps.tools
                 Console.Write("Editor> ");
                 string command = Console.ReadLine();
                 string[] commandarray = command.Trim().Split(" ");
-                Console.WriteLine(commandarray[0]);
                 switch (commandarray[0])
                 {
                     case "page":
@@ -103,8 +102,11 @@ namespace MemOS.apps.tools
                         Console.ReadKey();
                         goto WRITE_EDITOR;
 
+                    case "exit":
+                        return;
+                        
                     default:
-                        lineChanger(command.Replace(commandarray[0] + " ", ""), Path, int.Parse(commandarray[0]));
+                        lineChanger(command.Remove(0, commandarray[0].Length), Path, int.Parse(commandarray[0]));
                         goto WRITE_EDITOR;
                 }
             }
@@ -139,7 +141,9 @@ namespace MemOS.apps.tools
             if (arrLine.Length < line_to_edit)
             {
                 string[] sus = new String[line_to_edit - arrLine.Length];
-                arrLine = arrLine.Concat(sus).ToArray();
+                Array.Copy(arrLine, sus, arrLine.Length);
+                arrLine = sus;
+                _ = sus;
             }
             arrLine[line_to_edit - 1] = newText;
             File.WriteAllLines(fileName, arrLine);
@@ -148,17 +152,17 @@ namespace MemOS.apps.tools
         {
             List<string> arrline = File.ReadAllLines(fileName).ToList();
             Console.WriteLine(arrline.Count);
-            //arrline.RemoveRange(startline-1, endline-startline);
+            arrline.RemoveRange(startline-1, endline-startline);
             arrline.RemoveRange(startline - 1, endline);
             File.WriteAllLines(fileName, arrline.ToArray());
-
+            _ = arrline;
         }
         static void lineEraser(string fileName, int line)
         {
             List<string> arrline = File.ReadAllLines(fileName).ToList();
             arrline.RemoveAt(line - 1);
             File.WriteAllLines(fileName, arrline.ToArray());
-
+            _ = arrline;
         }
     }
 }

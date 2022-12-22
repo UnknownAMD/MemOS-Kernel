@@ -7,11 +7,11 @@ namespace MemOS.services
 {
     public static class diskrun
     {
+        public static CosmosVFS fs = new CosmosVFS();
         public static void autorun()
         {
             try
             {
-                CosmosVFS fs = new CosmosVFS();
                 VFSManager.RegisterVFS(fs, aShowInfo:true);
                 Console.Write("[");
                 Console.ForegroundColor = ConsoleColor.Green;
