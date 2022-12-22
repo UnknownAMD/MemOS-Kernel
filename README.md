@@ -10,7 +10,7 @@ Flash the ISO file onto a removable drive and boot
 - Build the Solution in Visual Studio
 
 # TODO:
-- [/] Networking
+- [x] Networking
 - [ ] VGA Drivers
 - [x] Processes / tasks & Task manager
 - [ ] OpenGL support
