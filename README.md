@@ -12,11 +12,11 @@ Flash the ISO file onto a removable drive and boot
 # TODO:
 - [x] Networking
 - [ ] VGA Drivers
-- [x] Processes / tasks & Task manager
+- [X] Processes / tasks & Task manager
 - [ ] OpenGL support
-- [x] MSE32 support
+- [X] MSE32 support
 - [ ] Lua interpreter
-- [x] More commands
+- [X] More commands
 - [ ] Multi-Lang
 - [ ] MSE64
 
