@@ -10,21 +10,21 @@ Flash the ISO file onto a removable drive and boot
 - Build the Solution in Visual Studio
 
 # TODO:
-- [ ] Networking
+- [/] Networking
 - [ ] VGA Drivers
-- [ ] Processes / tasks & Task manager
+- [x] Processes / tasks & Task manager
 - [ ] OpenGL support
-- [ ] MSE32 support
+- [x] MSE32 support
 - [ ] Lua interpreter
-- [ ] More commands
+- [x] More commands
+- [ ] Multi-Lang
+- [ ] MSE64
 
 # Known Issues
-- Doesn't Compile due to IL2CPU incompatibilies with NeoLua and Notepad
-- Reboot doesn't work
 - Disk Manager doesn't work
-- Permissions are disabled
-- Cannot create new users
 - Unoptimized
+- cannot enable logins
+- ftpserver might not be working
 
 # Contact
 MemzDev#9995 on Discord
