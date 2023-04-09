@@ -27,4 +27,4 @@ Flash the ISO file onto a removable drive and boot
 - ftpserver might not be working
 
 # Contact
-MemzDev#9995 on Discord
+HexDev#9995 on Discord
